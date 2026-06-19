@@ -154,6 +154,29 @@
         flex-shrink: 0;
       }
 
+      .project-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      .project-link svg,
+      .contact-link-icon svg,
+      .theme-btn svg,
+      .menu-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+      .skill-card-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .timeline-company svg,
+      .btn-primary svg,
+      .btn-ghost svg,
+      .scroll-hint svg {
+        width: 16px;
+        height: 16px;
+      }
+
       .menu-btn {
         display: none;
       }
@@ -875,10 +898,56 @@
         border-color: rgba(248, 113, 113, 0.35);
         background: rgba(248, 113, 113, 0.08);
       }
+      .form-status.loading {
+        color: var(--accent2);
+        border-color: rgba(124, 106, 255, 0.35);
+        background: rgba(124, 106, 255, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
       .btn-primary:disabled {
         opacity: 0.65;
         cursor: not-allowed;
         transform: none;
+      }
+      .btn-primary.is-loading {
+        opacity: 1;
+        pointer-events: none;
+        gap: 0.55rem;
+      }
+      .submit-btn-content {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn-spinner {
+        width: 15px;
+        height: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: form-spin 0.7s linear infinite;
+        flex-shrink: 0;
+      }
+      .status-spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(124, 106, 255, 0.25);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: form-spin 0.7s linear infinite;
+        flex-shrink: 0;
+      }
+      @keyframes form-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .contact-form.is-loading .form-input,
+      .contact-form.is-loading .form-textarea {
+        opacity: 0.55;
+        pointer-events: none;
       }
 
       /* ===== FOOTER ===== */
@@ -1615,7 +1684,7 @@
                 github.com/git-shubham-side
               </a>
               <a
-                href="https://instagram.com/shubham__rrathod"
+                href="https://www.instagram.com/shubham_rrathod32/"
                 target="_blank"
                 class="contact-link"
               >
@@ -1624,11 +1693,11 @@
                 </div>
                 @shubham__rrathod
               </a>
-              <a href="mailto:shubham@email.com" class="contact-link">
+              <a href="mailto:rathodshubham7711@email.com" class="contact-link">
                 <div class="contact-link-icon">
                   <i data-lucide="mail" width="16" height="16"></i>
                 </div>
-                shubham@email.com
+                rathodshubham7711@email.com
               </a>
               <a href="/resume" class="contact-link">
                 <div class="contact-link-icon">
@@ -1636,11 +1705,14 @@
                 </div>
                 Download Resume (PDF)
               </a>
-              <a href="#" class="contact-link">
+              <a
+                href="https://www.linkedin.com/in/shubham-rathod-dev/"
+                class="contact-link"
+              >
                 <div class="contact-link-icon">
                   <i data-lucide="linkedin" width="16" height="16"></i>
                 </div>
-                linkedin.com/in/shubham-rathod
+                linkedin.com/shubham-rathod-dev
               </a>
             </div>
           </div>
@@ -1692,8 +1764,10 @@
               id="submitBtn"
               style="align-self: flex-start"
             >
-              <i data-lucide="send" width="15" height="15"></i>
-              Send message
+              <span class="submit-btn-content">
+                <i data-lucide="send" width="15" height="15"></i>
+                Send message
+              </span>
             </button>
           </form>
         </div>
@@ -1702,9 +1776,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <div class="footer-text">
-        © 2026 Shubham Rathod. Built with pure HTML, CSS & JS.
-      </div>
+      <div class="footer-text">Shubham Rathod</div>
       <div class="footer-links">
         <a href="https://github.com/git-shubham-side" target="_blank">GitHub</a>
         <a href="/resume">Resume</a>
@@ -1714,13 +1786,22 @@
     </footer>
 
     <script>
+      function initIcons() {
+        if (!window.lucide?.createIcons) return;
+        lucide.createIcons({
+          attrs: {
+            "stroke-width": 2,
+          },
+        });
+      }
+
       function setLucideIcon(parent, iconName, size = 16) {
         if (!parent) return;
         parent.innerHTML = `<i data-lucide="${iconName}" width="${size}" height="${size}"></i>`;
-        lucide.createIcons();
+        initIcons();
       }
 
-      lucide.createIcons();
+      initIcons();
 
       // Theme toggle
       const toggle = document.getElementById("themeToggle");
@@ -1800,10 +1881,40 @@
       const contactForm = document.getElementById("contactForm");
       const formStatus = document.getElementById("formStatus");
       const submitBtn = document.getElementById("submitBtn");
+      const submitBtnContent = submitBtn.querySelector(".submit-btn-content");
+      const submitBtnDefaultHtml = submitBtnContent.innerHTML;
 
-      function showFormStatus(message, type) {
-        formStatus.textContent = message;
+      function showFormStatus(message, type, loading = false) {
         formStatus.className = `form-status visible ${type}`;
+        if (loading) {
+          formStatus.innerHTML = `<span class="status-spinner" aria-hidden="true"></span><span>${message}</span>`;
+          return;
+        }
+        formStatus.textContent = message;
+      }
+
+      function setFormLoading(loading) {
+        contactForm.classList.toggle("is-loading", loading);
+        contactForm.setAttribute("aria-busy", loading ? "true" : "false");
+        contactForm.querySelectorAll("input, textarea").forEach((field) => {
+          field.disabled = loading;
+        });
+        submitBtn.disabled = loading;
+        submitBtn.classList.toggle("is-loading", loading);
+
+        if (loading) {
+          submitBtnContent.innerHTML =
+            '<span class="btn-spinner" aria-hidden="true"></span> Sending...';
+          showFormStatus(
+            "Please wait — delivering your message...",
+            "loading",
+            true,
+          );
+          return;
+        }
+
+        submitBtnContent.innerHTML = submitBtnDefaultHtml;
+        initIcons();
       }
 
       contactForm.addEventListener("submit", async (e) => {
@@ -1823,8 +1934,7 @@
           return;
         }
 
-        submitBtn.disabled = true;
-        showFormStatus("Sending...", "success");
+        setFormLoading(true);
 
         try {
           const res = await fetch("/api/contact", {
@@ -1847,8 +1957,7 @@
         } catch (err) {
           showFormStatus(err.message, "error");
         } finally {
-          submitBtn.disabled = false;
-          lucide.createIcons();
+          setFormLoading(false);
         }
       });
     </script>

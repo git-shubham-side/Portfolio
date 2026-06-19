@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -103,8 +103,9 @@
     </main>
 
     <script>
-      // Initialize Lucide Icons
-      lucide.createIcons();
+      if (window.lucide?.createIcons) {
+        lucide.createIcons({ attrs: { "stroke-width": 2 } });
+      }
     </script>
   </body>
 </html>

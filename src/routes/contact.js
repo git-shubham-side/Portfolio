@@ -48,6 +48,16 @@ router.post("/", async (req, res) => {
     });
   } catch (err) {
     console.error("Contact form error:", err);
+
+    if (err.code === "EAUTH") {
+      res.status(500).json({
+        error: config.isProduction
+          ? "Failed to send message. Please try again later."
+          : "Gmail App Password required in SMTP_PASS (normal password won't work).",
+      });
+      return;
+    }
+
     res.status(500).json({
       error: "Failed to send message. Please try again later.",
     });
