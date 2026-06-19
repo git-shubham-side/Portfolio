@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                purple: "#7e5eff", // Screenshot wala exact purple shade
+                dark: "#0B0B0F", // Screenshot jaisa deep dark background
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-brand-dark text-slate-300 font-sans min-h-screen relative overflow-hidden selection:bg-brand-purple selection:text-white"
+  >
+    <!-- Right Side Purple Glow Effect -->
+    <div
+      class="fixed top-0 right-0 w-[60vw] h-[60vw] bg-brand-purple opacity-[0.08] blur-[120px] rounded-full pointer-events-none translate-x-1/4 -translate-y-1/4"
+    ></div>
+
+    <!-- Main Content -->
+    <main
+      class="min-h-screen flex flex-col justify-center px-6 sm:px-10 md:px-20 lg:px-32 max-w-7xl mx-auto relative z-10"
+    >
+      <!-- Status Badge (Matching "Available for opportunities" style) -->
+      <div
+        class="mb-8 w-fit flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/10 bg-[#1A1A24]/40 backdrop-blur-md"
+      >
+        <span
+          class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+        ></span>
+        <span class="text-sm font-medium text-slate-300 tracking-wide"
+          >Error 404 · Page Not Found</span
+        >
+      </div>
+
+      <!-- Headings (Strictly controlled sizing to prevent layout breaks) -->
+      <div class="mb-8 flex flex-col">
+        <h1
+          class="text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-white tracking-tighter leading-[0.95]"
+        >
+          Lost In
+        </h1>
+        <h1
+          class="text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black text-brand-purple tracking-tighter leading-[0.95]"
+        >
+          Space.
+        </h1>
+      </div>
+
+      <!-- Description -->
+      <p
+        class="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-10 pr-4"
+      >
+        The page you are looking for doesn't exist, has been moved, or is
+        temporarily unavailable. Let's get you back to the right path.
+      </p>
+
+      <!-- Action Buttons (Matching exactly with screenshot) -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <!-- Primary Purple Button -->
+        <a
+          href="/"
+          class="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-brand-purple hover:bg-[#6c4dec] text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-200"
+        >
+          <i data-lucide="home" class="w-5 h-5"></i>
+          Back to Home
+        </a>
+
+        <!-- Secondary Dark Button -->
+        <a
+          href="javascript:history.back()"
+          class="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-transparent border border-white/15 hover:border-white/30 text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-200"
+        >
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          Go Back
+        </a>
+      </div>
+    </main>
+
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
