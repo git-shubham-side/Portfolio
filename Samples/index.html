@@ -1105,11 +1105,15 @@
           padding: 1rem 1.25rem;
         }
         section {
-          padding: 4rem 1.25rem;
-        }
+          padding: 4rem 1.5rem;
+        } /* was 1.25rem */
         .hero {
-          padding-left: 1.25rem;
-          padding-right: 1.25rem;
+          padding-left: 1.5rem; /* was 1.25rem */
+          padding-right: 1.5rem; /* was 1.25rem */
+        }
+        #skills .section-inner,
+        #contact .section-inner {
+          padding: 0 1.5rem; /* ADD THIS */
         }
         footer {
           flex-direction: column;
@@ -1158,6 +1162,38 @@
       /* active nav */
       .nav-links a.active {
         color: var(--text);
+      }
+      .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+        display: block;
+        transition:
+          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          filter 0.4s ease;
+        filter: brightness(0.95) saturate(0.9);
+      }
+      .about-avatar:hover .avatar-img {
+        transform: scale(1.05);
+        filter: brightness(1.05) saturate(1.1);
+      }
+      .avatar-fallback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 3.5rem;
+        color: var(--accent);
+        letter-spacing: -2px;
+      }
+      .about-avatar {
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+      }
+      .about-avatar:hover {
+        box-shadow: 0 0 0 3px rgba(124, 106, 255, 0.35);
       }
     </style>
   </head>
@@ -1263,8 +1299,19 @@
       <div class="about-grid">
         <div class="about-img-wrap fade-in">
           <div class="about-avatar">
-            <span class="about-initials">SR</span>
+            <img
+              src="/Image/portfolio-img-shubh.jpeg"
+              alt="Shubham Rathod"
+              class="avatar-img"
+              onerror="
+                this.style.display = 'none';
+                document.querySelector('.avatar-fallback').style.display =
+                  'flex';
+              "
+            />
+            <span class="about-initials avatar-fallback">SR</span>
           </div>
+
           <div class="floating-card fc1">
             <div class="fc-dot fc-green"></div>
             Open to Opportunities
@@ -1539,9 +1586,9 @@
           </div>
           <div class="project-name">ContactMe Services</div>
           <div class="project-desc">
-            Freelance project — ek hi portal pe 3 businesses: Dehydrated Powder,
-            Boys Hostel, aur E-Tender Services. Real-time analytics, CMS, aur
-            professional landing pages ke saath complete MERN ecosystem.
+            Freelance project - 3 businesses on a single portal: Dehydrated
+            Powder, Boys Hostel, and E-Tender Services. Complete MERN ecosystem
+            with real-time analytics, CMS, and professional landing pages.
           </div>
           <div class="project-tech">
             <span class="tech-badge accent">Node.js</span>
@@ -1607,7 +1654,7 @@
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-date">2021 — 2024</div>
+          <div class="timeline-date">2024 — 2026</div>
           <div class="timeline-role">
             Bachelor of Computer Applications (BCA)
           </div>
@@ -1624,7 +1671,7 @@
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-date">2024</div>
+          <div class="timeline-date">2026</div>
           <div class="timeline-role">
             Hackathon Participant — Team Node Ninjas
           </div>
